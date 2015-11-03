@@ -1,0 +1,38 @@
+{
+    "name": "pugx/shortid-doctrine",
+    "description": "Doctrine type for shortid-php",
+    "keywords": ["shortid", "id", "uuid", "doctrine"],
+    "homepage": "http://pugx.org/",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Massimiliano Arione",
+            "email": "garakkio@gmail.com"
+        },
+        {
+            "name": "The Community",
+            "homepage": "https://github.com/pugx/shortid-doctrine"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/pugx/shortid-doctrine/issues"
+    },
+    "require": {
+        "pugx/shortid-php": "1.*"
+    },
+    "require-dev":{
+        "phpunit/phpunit": "4.*"
+    },
+    "autoload": {
+        "psr-4": { "PUGX\\Shortid\\Doctrine": "src" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}
