@@ -25,7 +25,7 @@
         "phpunit/phpunit": "4.*"
     },
     "autoload": {
-        "psr-4": { "PUGX\\Shortid\\Doctrine": "src" }
+        "psr-4": { "PUGX\\Shortid\\Doctrine\\": "src" }
     },
     "extra": {
         "branch-alias": {
