@@ -86,6 +86,6 @@ class ShortidType extends Type
      */
     public function requiresSQLCommentHint(AbstractPlatform $platform)
     {
-        return false;
+        return true;
     }
 }
