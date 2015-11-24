@@ -19,6 +19,7 @@
         "issues": "https://github.com/pugx/shortid-doctrine/issues"
     },
     "require": {
+        "doctrine/dbal": "2.*",
         "pugx/shortid-php": "1.*"
     },
     "require-dev":{
