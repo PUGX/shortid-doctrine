@@ -27,7 +27,7 @@ class ShortidType extends Type
     {
         $field = ['length' => 7, 'fixed' => true, 'collation' => 'utf8_bin'];
 
-        return $platform->getVarcharTypeDeclarationSQL($field). ' '.$platform->getColumnCollationDeclarationSQL('utf8_bin');
+        return $platform->getVarcharTypeDeclarationSQL($field).' '.$platform->getColumnCollationDeclarationSQL('utf8_bin');
     }
 
     /**
@@ -39,7 +39,7 @@ class ShortidType extends Type
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
         if (empty($value)) {
-            return null;
+            return;
         }
 
         if ($value instanceof ShortId) {
@@ -58,7 +58,7 @@ class ShortidType extends Type
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         if (empty($value)) {
-            return null;
+            return;
         }
 
         if ($value instanceof ShortId || ShortId::isValid($value)) {
@@ -82,7 +82,8 @@ class ShortidType extends Type
      * {@inheritdoc}
      *
      * @param \Doctrine\DBAL\Platforms\AbstractPlatform $platform
-     * @return boolean
+     *
+     * @return bool
      */
     public function requiresSQLCommentHint(AbstractPlatform $platform)
     {
