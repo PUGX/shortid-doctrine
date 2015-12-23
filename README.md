@@ -16,7 +16,7 @@ composer require pugx/shortid-doctrine
 
 ## Examples
 
-To configure Doctrine to use pugx/shortid as a field type, you'll need to set up
+To configure Doctrine to use ``shortid`` as a field type, you'll need to set up
 the following in your bootstrap:
 
 ``` php
@@ -24,15 +24,13 @@ the following in your bootstrap:
 $entityManager->getConnection()->getDatabasePlatform()->registerDoctrineTypeMapping('shortid', 'shortid');
 ```
 
-Then, in your models, you may annotate properties by setting the `@Column`
-type to `shortid`. Since databases are not be able to
-auto-generate a ShortId when inserting into the database,
-in your model's constructor (or elsewhere, depending on how you create instances
-of your model), generate a `PUGX\Shortid\Shortid` object for the property. Doctrine
-will handle the rest.
+Then, in your entities, you may annotate properties by setting the `@Column`
+type to `shortid`.
 
-For example, here we annotate an `@Id` column with the `shortid` type, and in the
-constructor, we generate a ShortId to store for this entity.
+You can generate a `PUGX\Shortid\Shortid` object for the property in your constructor, or
+use the built-in genrator.
+
+Example with shortid created manually in constructor:
 
 ``` php
 <?php
@@ -58,6 +56,34 @@ class Product
     {
         $this->id = Shortid::generate();
     }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+}
+```
+
+Example with auto-generated shortid:
+
+``` php
+<?php
+
+/**
+ * @Entity
+ * @Table
+ */
+class Product
+{
+    /**
+     * @var string
+     *
+     * @Id
+     * @Column(type="shortid")
+     * @GeneratedValue(strategy="CUSTOM")
+     * @CustomIdGenerator(class="PUGX\ShortidDoctrine\Generator\ShortidGenerator")
+     */
+    protected $id;
 
     public function getId()
     {
