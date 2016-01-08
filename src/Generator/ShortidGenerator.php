@@ -1,6 +1,6 @@
 <?php
 
-namespace PUGX\ShortidDoctrine\Generator;
+namespace PUGX\Shortid\Doctrine\Generator;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Id\AbstractIdGenerator;

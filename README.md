@@ -83,7 +83,7 @@ class Product
      * @Id
      * @Column(type="shortid")
      * @GeneratedValue(strategy="CUSTOM")
-     * @CustomIdGenerator(class="PUGX\ShortidDoctrine\Generator\ShortidGenerator")
+     * @CustomIdGenerator(class="PUGX\Shortid\Doctrine\Generator\ShortidGenerator")
      */
     protected $id;
 
