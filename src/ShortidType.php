@@ -25,7 +25,9 @@ class ShortidType extends Type
      */
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
     {
-        $field = ['length' => 7, 'fixed' => true, 'collation' => 'utf8_bin'];
+        $length = isset($fieldDeclaration['length']) ? $fieldDeclaration['length'] : 7;
+
+        $field = ['length' => $length, 'fixed' => true, 'collation' => 'utf8_bin'];
 
         return $platform->getVarcharTypeDeclarationSQL($field).' '.$platform->getColumnCollationDeclarationSQL('utf8_bin');
     }
