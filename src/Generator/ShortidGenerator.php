@@ -11,7 +11,7 @@ class ShortidGenerator extends AbstractIdGenerator
     /**
      * {@inheritdoc}
      */
-    public function generate(EntityManager $em, $entity)
+    public function generate(EntityManager $manager, $entity)
     {
         return Shortid::generate();
     }
