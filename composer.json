@@ -20,7 +20,7 @@
     },
     "require": {
         "doctrine/orm": "2.*",
-        "pugx/shortid-php": "1.*@dev"
+        "pugx/shortid-php": "^0.1"
     },
     "autoload": {
         "psr-4": { "PUGX\\Shortid\\Doctrine\\": "src" }
@@ -30,8 +30,6 @@
             "dev-master": "1.0-dev"
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "config": {
         "bin-dir": "bin"
     }
