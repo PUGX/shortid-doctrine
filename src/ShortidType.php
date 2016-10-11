@@ -48,7 +48,7 @@ class ShortidType extends Type
             return $value;
         }
 
-        return (string) $value;
+        return $value;
     }
 
     /**
@@ -64,7 +64,7 @@ class ShortidType extends Type
         }
 
         if ($value instanceof ShortId || ShortId::isValid($value)) {
-            return (string) $value;
+            return $value;
         }
 
         throw ConversionException::conversionFailed($value, self::NAME);

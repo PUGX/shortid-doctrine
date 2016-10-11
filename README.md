@@ -47,7 +47,7 @@ use PUGX\Shortid\Shortid;
 class Product
 {
     /**
-     * @var string
+     * @var Shortid
      *
      * @Id
      * @Column(type="shortid")
@@ -79,7 +79,7 @@ Example with auto-generated shortid:
 class Product
 {
     /**
-     * @var string
+     * @var \PUGX\Shortid\Shortid
      *
      * @Id
      * @Column(type="shortid")
@@ -109,7 +109,7 @@ use PUGX\Shortid\Shortid;
 class Product
 {
     /**
-     * @var string
+     * @var Shortid
      *
      * @Id
      * @Column(type="shortid", length=5)
