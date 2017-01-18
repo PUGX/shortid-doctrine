@@ -23,7 +23,7 @@ class ShortidType extends Type
      * @param array                                     $fieldDeclaration
      * @param \Doctrine\DBAL\Platforms\AbstractPlatform $platform
      */
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
+    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {
         $length = isset($fieldDeclaration['length']) ? $fieldDeclaration['length'] : 7;
 
@@ -43,12 +43,10 @@ class ShortidType extends Type
         if (empty($value)) {
             return;
         }
-
-        if ($value instanceof ShortId) {
-            return $value;
+        if (ShortId::isValid($value)) {
+            return new Shortid($value);
         }
-
-        return $value;
+        throw ConversionException::conversionFailed($value, self::NAME);
     }
 
     /**
@@ -62,11 +60,9 @@ class ShortidType extends Type
         if (empty($value)) {
             return;
         }
-
         if ($value instanceof ShortId || ShortId::isValid($value)) {
             return $value;
         }
-
         throw ConversionException::conversionFailed($value, self::NAME);
     }
 
@@ -75,7 +71,7 @@ class ShortidType extends Type
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return self::NAME;
     }
@@ -87,7 +83,7 @@ class ShortidType extends Type
      *
      * @return bool
      */
-    public function requiresSQLCommentHint(AbstractPlatform $platform)
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {
         return true;
     }

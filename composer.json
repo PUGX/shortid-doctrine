@@ -19,8 +19,11 @@
         "issues": "https://github.com/pugx/shortid-doctrine/issues"
     },
     "require": {
-        "doctrine/orm": "2.*",
-        "pugx/shortid-php": "^0.1"
+        "doctrine/orm": "^2.4",
+        "pugx/shortid-php": "^0.2"
+    },
+    "require-dev":{
+        "phpunit/phpunit": "^5.7"
     },
     "autoload": {
         "psr-4": { "PUGX\\Shortid\\Doctrine\\": "src" }
