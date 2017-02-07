@@ -2,7 +2,7 @@
 
 namespace PUGX\Shortid\Doctrine\Test;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use PUGX\Shortid\Doctrine\ShortidType;
 
 class ShortidTypeTest extends TestCase
