@@ -53,7 +53,7 @@ class ShortidTypeTest extends TestCase
 
     public function testConvertToDatabaseValue()
     {
-        $shortid = $this->getMockBuilder('PUGX\Shortid\Shortid')->getMock();
+        $shortid = $this->getMockBuilder('PUGX\Shortid\Shortid')->disableOriginalConstructor()->getMock();
         $converted = $this->type->convertToDatabaseValue($shortid, $this->platform);
         $this->assertInstanceOf('PUGX\Shortid\Shortid', $converted);
     }
