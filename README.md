@@ -5,7 +5,7 @@ ShortId Doctrine Type
 [![Build Status](https://travis-ci.org/PUGX/shortid-doctrine.png?branch=master)](https://travis-ci.org/PUGX/shortid-doctrine)
 [![Code Climate](https://codeclimate.com/github/PUGX/shortid-doctrine/badges/gpa.svg)](https://codeclimate.com/github/PUGX/shortid-doctrine)
 
-A [Doctrine field type](http://doctrine-dbal.readthedocs.org/en/latest/reference/types.html) for
+A [Doctrine field type](https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html) for
 [ShortId](https://github.com/pugx/shortid-php) for PHP.
 
 ## Installation
@@ -18,7 +18,7 @@ composer require pugx/shortid-doctrine
 
 ## Examples
 
-To configure Doctrine to use ``shortid`` as a field type, you'll need to set up
+To configure Doctrine to use `shortid` as a field type, you'll need to set up
 the following in your bootstrap:
 
 ``` php
@@ -61,7 +61,7 @@ class Product
         $this->id = Shortid::generate();
     }
 
-    public function getId()
+    public function getId(): Shortid
     {
         return $this->id;
     }
@@ -73,6 +73,8 @@ Example with auto-generated shortid:
 ``` php
 <?php
 
+use PUGX\Shortid\Shortid;
+
 /**
  * @Entity
  * @Table
@@ -80,7 +82,7 @@ Example with auto-generated shortid:
 class Product
 {
     /**
-     * @var \PUGX\Shortid\Shortid
+     * @var Shortid
      *
      * @Id
      * @Column(type="shortid")
@@ -89,14 +91,14 @@ class Product
      */
     protected $id;
 
-    public function getId()
+    public function getId(): Shortid
     {
         return $this->id;
     }
 }
 ```
 
-If you want to customize ShortId length, you can use the ``length`` option in the Column annotation. Example:
+If you want to customize ShortId length, you can use the `length` option in the Column annotation. Example:
 
 ``` php
 <?php
@@ -134,9 +136,11 @@ If you want to customize alphabet and/or to use the built-in generator, you need
 $entityManager->getConnection()->getDatabasePlatform()->registerDoctrineTypeMapping('shortid', 'shortid');
 
 $factory = new \PUGX\Shortid\Factory();
-$factory->setAlphabet('é123456789àbcdefghìjklmnòpqrstùvwxyzABCDEFGHIJKLMNOPQRSTUVWX.!@|');    // must be 64 characters long
-$factory->setLength(5);    // accepts values between 2 and 20
+// alphabet must be 64 characters long
+$factory->setAlphabet('é123456789àbcdefghìjklmnòpqrstùvwxyzABCDEFGHIJKLMNOPQRSTUVWX.!@|');
+// length must be between 2 and 20
+$factory->setLength(5);
 PUGX\Shortid\Shortid::setFactory($factory);
 ```
 
-Then, you must pay attention to configure every ShortId property with the **same length** (``5`` in this example).
+Then, you must pay attention to configure every ShortId property with the **same length** (`5` in this example).
