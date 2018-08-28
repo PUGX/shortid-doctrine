@@ -20,7 +20,7 @@
     },
     "require": {
         "doctrine/orm": "^2.4",
-        "pugx/shortid-php": "^0.3"
+        "pugx/shortid-php": "^0.5"
     },
     "require-dev":{
         "phpunit/phpunit": "^6.0"
