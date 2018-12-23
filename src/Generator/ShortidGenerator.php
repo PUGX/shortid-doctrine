@@ -8,9 +8,6 @@ use PUGX\Shortid\Shortid;
 
 class ShortidGenerator extends AbstractIdGenerator
 {
-    /**
-     * {@inheritdoc}
-     */
     public function generate(EntityManager $manager, $entity): Shortid
     {
         return Shortid::generate();

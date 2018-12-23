@@ -15,14 +15,8 @@ use PUGX\Shortid\Shortid;
  */
 class ShortidType extends Type
 {
-    const NAME = 'shortid';
+    public const NAME = 'shortid';
 
-    /**
-     * {@inheritdoc}
-     *
-     * @param array                                     $fieldDeclaration
-     * @param \Doctrine\DBAL\Platforms\AbstractPlatform $platform
-     */
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {
         $length = isset($fieldDeclaration['length']) ? $fieldDeclaration['length'] : 7;
@@ -32,12 +26,6 @@ class ShortidType extends Type
         return $platform->getVarcharTypeDeclarationSQL($field).' '.$platform->getColumnCollationDeclarationSQL('utf8_bin');
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @param string|null                               $value
-     * @param \Doctrine\DBAL\Platforms\AbstractPlatform $platform
-     */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
         if (empty($value)) {
@@ -49,12 +37,6 @@ class ShortidType extends Type
         throw ConversionException::conversionFailed($value, self::NAME);
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @param ShortId|null                              $value
-     * @param \Doctrine\DBAL\Platforms\AbstractPlatform $platform
-     */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         if (empty($value)) {
@@ -66,23 +48,11 @@ class ShortidType extends Type
         throw ConversionException::conversionFailed($value, self::NAME);
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @return string
-     */
     public function getName(): string
     {
         return self::NAME;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @param \Doctrine\DBAL\Platforms\AbstractPlatform $platform
-     *
-     * @return bool
-     */
     public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {
         return true;

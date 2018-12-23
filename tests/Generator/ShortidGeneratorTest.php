@@ -7,7 +7,7 @@ use PUGX\Shortid\Doctrine\Generator\ShortidGenerator;
 
 class ShortidGeneratorTest extends TestCase
 {
-    public function testGenerate()
+    public function testGenerate(): void
     {
         $manager = $this->getMockBuilder('Doctrine\ORM\EntityManager')->disableOriginalConstructor()->getMock();
         $generator = new ShortidGenerator();
