@@ -5,7 +5,7 @@ namespace PUGX\Shortid\Doctrine\Test;
 use PHPUnit\Framework\TestCase;
 use PUGX\Shortid\Doctrine\ShortidType;
 
-class ShortidTypeTest extends TestCase
+final class ShortidTypeTest extends TestCase
 {
     private $platform;
     private $type;

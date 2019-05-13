@@ -13,7 +13,7 @@ use PUGX\Shortid\Shortid;
  * ShortId fields will be stored as a string in the database and converted back to
  * the ShortId value object when querying.
  */
-class ShortidType extends Type
+final class ShortidType extends Type
 {
     public const NAME = 'shortid';
 

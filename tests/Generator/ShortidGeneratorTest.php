@@ -5,7 +5,7 @@ namespace PUGX\Shortid\Doctrine\Test\Generator;
 use PHPUnit\Framework\TestCase;
 use PUGX\Shortid\Doctrine\Generator\ShortidGenerator;
 
-class ShortidGeneratorTest extends TestCase
+final class ShortidGeneratorTest extends TestCase
 {
     public function testGenerate(): void
     {
