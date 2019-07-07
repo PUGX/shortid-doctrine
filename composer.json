@@ -40,6 +40,11 @@
             "PUGX\\Shortid\\Doctrine\\": "src"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "PUGX\\Shortid\\Doctrine\\Test\\": "tests"
+        }
+    },
     "support": {
         "issues": "https://github.com/pugx/shortid-doctrine/issues"
     }
