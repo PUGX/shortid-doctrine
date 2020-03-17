@@ -54,11 +54,11 @@ class Product
      * @Column(type="shortid")
      * @GeneratedValue(strategy="NONE")
      */
-    protected $id;
+    private $id;
 
-    public function __construct()
+    public function __construct(?Shortid $id = null)
     {
-        $this->id = Shortid::generate();
+        $this->id = $id ?? Shortid::generate();
     }
 
     public function getId(): Shortid
@@ -89,7 +89,7 @@ class Product
      * @GeneratedValue(strategy="CUSTOM")
      * @CustomIdGenerator(class="PUGX\Shortid\Doctrine\Generator\ShortidGenerator")
      */
-    protected $id;
+    private $id;
 
     public function getId(): Shortid
     {
@@ -118,7 +118,7 @@ class Product
      * @Column(type="shortid", length=5)
      * @GeneratedValue(strategy="NONE")
      */
-    protected $id;
+    private $id;
 
     public function __construct()
     {
