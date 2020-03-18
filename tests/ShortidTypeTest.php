@@ -8,6 +8,7 @@ use PUGX\Shortid\Doctrine\ShortidType;
 final class ShortidTypeTest extends TestCase
 {
     private $platform;
+
     private $type;
 
     protected function setUp(): void
