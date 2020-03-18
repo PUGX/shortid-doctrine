@@ -34,6 +34,7 @@ final class ShortidType extends Type
         if (ShortId::isValid($value)) {
             return new Shortid($value);
         }
+
         throw ConversionException::conversionFailed($value, self::NAME);
     }
 
@@ -45,6 +46,7 @@ final class ShortidType extends Type
         if ($value instanceof ShortId || ShortId::isValid($value)) {
             return $value;
         }
+
         throw ConversionException::conversionFailed($value, self::NAME);
     }
 
