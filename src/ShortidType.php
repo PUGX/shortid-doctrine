@@ -3,6 +3,7 @@
 namespace PUGX\Shortid\Doctrine;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Platforms\MySqlPlatform;
 use Doctrine\DBAL\Types\ConversionException;
 use Doctrine\DBAL\Types\Type;
 use PUGX\Shortid\Shortid;
@@ -19,9 +20,13 @@ final class ShortidType extends Type
 
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {
-        $length = isset($fieldDeclaration['length']) ? $fieldDeclaration['length'] : 7;
+        $length = $fieldDeclaration['length'] ?? 7;
 
-        $field = ['length' => $length, 'fixed' => true, 'collation' => 'utf8_bin'];
+        $field = ['length' => $length, 'fixed' => true];
+        if (!$platform instanceof MySqlPlatform) {
+            return $platform->getVarcharTypeDeclarationSQL($field);
+        }
+        $field['collation'] = 'utf8_bin';
 
         return $platform->getVarcharTypeDeclarationSQL($field).' '.$platform->getColumnCollationDeclarationSQL('utf8_bin');
     }
