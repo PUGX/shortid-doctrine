@@ -2,45 +2,50 @@
 
 namespace PUGX\Shortid\Doctrine\Test;
 
+use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Types\ConversionException;
 use PHPUnit\Framework\TestCase;
 use PUGX\Shortid\Doctrine\ShortidType;
+use PUGX\Shortid\Shortid;
 
 final class ShortidTypeTest extends TestCase
 {
+    /** @var \PHPUnit\Framework\MockObject\MockObject&AbstractPlatform */
     private $platform;
 
     private $type;
 
     protected function setUp(): void
     {
-        $this->platform = $this->getMockBuilder('Doctrine\DBAL\Platforms\AbstractPlatform')->getMock();
+        $this->platform = $this->getMockBuilder(AbstractPlatform::class)->getMock();
         if (!ShortidType::hasType('shortid')) {
-            ShortidType::addType('shortid', 'PUGX\Shortid\Doctrine\ShortidType');
+            ShortidType::addType('shortid', ShortidType::class);
         }
         $this->type = ShortidType::getType('shortid');
     }
 
-    public function testgetSQLDeclaration(): void
+    public function testGetSQLDeclaration(): void
     {
+        $this->platform->expects(self::once())->method('getVarcharTypeDeclarationSQL')->willReturn('CHAR');
         $declaration = $this->type->getSQLDeclaration([], $this->platform);
-        $this->assertNotEmpty($declaration);
+        self::assertNotEmpty($declaration);
     }
 
     public function testConvertToPHPValueNull(): void
     {
         $converted = $this->type->convertToPHPValue(null, $this->platform);
-        $this->assertNull($converted);
+        self::assertNull($converted);
     }
 
     public function testConvertToPHPValueShortid(): void
     {
         $converted = $this->type->convertToPHPValue('shortid', $this->platform);
-        $this->assertInstanceOf('PUGX\Shortid\Shortid', $converted);
+        self::assertInstanceOf(Shortid::class, $converted);
     }
 
     public function testConvertToPHPValueException(): void
     {
-        $this->expectException(\Doctrine\DBAL\Types\ConversionException::class);
+        $this->expectException(ConversionException::class);
 
         $this->type->convertToPHPValue(3, $this->platform);
     }
@@ -48,32 +53,32 @@ final class ShortidTypeTest extends TestCase
     public function testConvertToDatabaseValueNull(): void
     {
         $converted = $this->type->convertToDatabaseValue(null, $this->platform);
-        $this->assertNull($converted);
+        self::assertNull($converted);
     }
 
     public function testConvertToDatabaseValue(): void
     {
-        $shortid = $this->getMockBuilder('PUGX\Shortid\Shortid')->disableOriginalConstructor()->getMock();
+        $shortid = $this->getMockBuilder(Shortid::class)->disableOriginalConstructor()->getMock();
         $converted = $this->type->convertToDatabaseValue($shortid, $this->platform);
-        $this->assertInstanceOf('PUGX\Shortid\Shortid', $converted);
+        self::assertInstanceOf(Shortid::class, $converted);
     }
 
     public function testConvertToDatabaseValueException(): void
     {
-        $this->expectException(\Doctrine\DBAL\Types\ConversionException::class);
+        $this->expectException(ConversionException::class);
 
-        $converted = $this->type->convertToDatabaseValue(42, $this->platform);
+        $this->type->convertToDatabaseValue(42, $this->platform);
     }
 
     public function testGetName(): void
     {
         $name = $this->type->getName();
-        $this->assertEquals('shortid', $name);
+        self::assertEquals('shortid', $name);
     }
 
     public function testRequiresSQLCommentHint(): void
     {
         $bool = $this->type->requiresSQLCommentHint($this->platform);
-        $this->assertTrue($bool);
+        self::assertTrue($bool);
     }
 }

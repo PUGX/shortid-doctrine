@@ -5,6 +5,7 @@ namespace PUGX\Shortid\Doctrine\Test\Generator;
 use Doctrine\ORM\EntityManager;
 use PHPUnit\Framework\TestCase;
 use PUGX\Shortid\Doctrine\Generator\ShortidGenerator;
+use PUGX\Shortid\Shortid;
 
 final class ShortidGeneratorTest extends TestCase
 {
@@ -15,6 +16,6 @@ final class ShortidGeneratorTest extends TestCase
         $generator = new ShortidGenerator();
         $entity = new \stdClass();
         $id = $generator->generate($manager, $entity);
-        $this->assertInstanceOf('PUGX\Shortid\Shortid', $id);
+        self::assertInstanceOf(Shortid::class, $id);
     }
 }
