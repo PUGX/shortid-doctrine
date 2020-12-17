@@ -16,6 +16,9 @@ Run the following command:
 composer require pugx/shortid-doctrine
 ```
 
+**Note:** if you use Symfony, you should require
+[pugx/shortid-doctrine-bundle](https://github.com/PUGX/shortid-doctrine-bundle) instead. 
+
 ## Examples
 
 To configure Doctrine to use `shortid` as a field type, you'll need to set up

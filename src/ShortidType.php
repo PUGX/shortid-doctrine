@@ -18,9 +18,9 @@ final class ShortidType extends Type
 {
     public const NAME = 'shortid';
 
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
+    public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
-        $length = $fieldDeclaration['length'] ?? 7;
+        $length = $column['length'] ?? 7;
 
         $field = ['length' => $length, 'fixed' => true];
         if (!$platform instanceof MySqlPlatform) {
