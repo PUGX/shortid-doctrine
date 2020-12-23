@@ -2,7 +2,7 @@ ShortId Doctrine Type
 =====================
 
 [![Total Downloads](https://poser.pugx.org/pugx/shortid-doctrine/downloads.png)](https://packagist.org/packages/pugx/shortid-doctrine)
-[![Build Status](https://travis-ci.org/PUGX/shortid-doctrine.png?branch=master)](https://travis-ci.org/PUGX/shortid-doctrine)
+[![Build Status](https://github.com/PUGX/shortid-doctrine/workflows/build/badge.svg)](https://github.com/PUGX/shortid-doctrine/actions)
 [![Code Climate](https://codeclimate.com/github/PUGX/shortid-doctrine/badges/gpa.svg)](https://codeclimate.com/github/PUGX/shortid-doctrine)
 
 A [Doctrine field type](https://www.doctrine-project.org/projects/doctrine-dbal/en/latest/reference/types.html) for
