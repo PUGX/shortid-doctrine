@@ -1,0 +1,42 @@
+name: build
+
+on:
+    pull_request: ~
+    push: ~
+
+jobs:
+    tests:
+        runs-on: ubuntu-20.04
+        strategy:
+            matrix:
+                php:
+                    - '7.2'
+                    - '7.3'
+                    - '7.4'
+                    - '8.0'
+                include:
+                    - description: 'lowest'
+                      php: '7.2'
+                      composer_option: '--prefer-lowest'
+                    - description: '7.3'
+                      php: '7.3'
+                    - description: '7.4'
+                      php: '7.4'
+                    - description: 'latest'
+                      php: '8.0'
+        name: PHP ${{ matrix.php }} tests
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+            - name: Cache
+              uses: actions/cache@v2
+              with: 
+                  path: ~/.composer/cache/files
+                  key: ${{ matrix.php }}-${{ matrix.composer_option }} 
+            - name: Setup PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+            - run: composer update --no-interaction --no-progress --ansi ${{ matrix.composer_option }}
+            - run: bin/phpunit
+
