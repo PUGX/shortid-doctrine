@@ -27,4 +27,8 @@
         <log type="coverage-text" target="build/coverage.txt"/>
         <log type="coverage-clover" target="build/logs/clover.xml"/>
     </logging>
+    <!-- see https://www.tomasvotruba.cz/blog/2019/03/28/how-to-mock-final-classes-in-phpunit/ -->
+    <extensions>
+        <extension class="PUGX\Shortid\Doctrine\Test\BypassFinalHook"/>
+    </extensions>
 </phpunit>
