@@ -44,7 +44,7 @@ final class ShortidType extends Type
         if (empty($value)) {
             return null;
         }
-        if (ShortId::isValid($value)) {
+        if (ShortId::isValid((string) $value)) {
             return new Shortid($value);
         }
 
@@ -59,7 +59,7 @@ final class ShortidType extends Type
         if (empty($value)) {
             return null;
         }
-        if ($value instanceof ShortId || ShortId::isValid($value)) {
+        if ($value instanceof ShortId || ShortId::isValid((string) $value)) {
             return (string) $value;
         }
 
