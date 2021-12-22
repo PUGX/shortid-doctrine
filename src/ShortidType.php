@@ -19,7 +19,7 @@ final class ShortidType extends Type
     public const NAME = 'shortid';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getSQLDeclaration(array $column, AbstractPlatform $platform): string
     {
@@ -35,7 +35,7 @@ final class ShortidType extends Type
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function convertToPHPValue($value, AbstractPlatform $platform): ?Shortid
     {
@@ -50,7 +50,7 @@ final class ShortidType extends Type
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
@@ -58,14 +58,14 @@ final class ShortidType extends Type
             return null;
         }
         if ($value instanceof ShortId || ShortId::isValid($value)) {
-            return (string)$value;
+            return (string) $value;
         }
 
         throw ConversionException::conversionFailed($value, self::NAME);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getName(): string
     {
@@ -73,7 +73,7 @@ final class ShortidType extends Type
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {
