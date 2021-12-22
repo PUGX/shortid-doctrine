@@ -1,5 +1,7 @@
 <?php
+
 declare(strict_types=1);
+
 namespace PUGX\Shortid\Doctrine;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
