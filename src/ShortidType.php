@@ -1,4 +1,5 @@
 <?php
+
 namespace PUGX\Shortid\Doctrine;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
