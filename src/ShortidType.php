@@ -31,10 +31,10 @@ final class ShortidType extends Type
         return $platform->getVarcharTypeDeclarationSQL($field).' '.$platform->getColumnCollationDeclarationSQL('utf8_bin');
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?Shortid
     {
         if (empty($value)) {
-            return;
+            return null;
         }
         if (ShortId::isValid($value)) {
             return new Shortid($value);
@@ -43,13 +43,13 @@ final class ShortidType extends Type
         throw ConversionException::conversionFailed($value, self::NAME);
     }
 
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
     {
         if (empty($value)) {
-            return;
+            return null;
         }
         if ($value instanceof ShortId || ShortId::isValid($value)) {
-            return $value;
+            return (string) $value;
         }
 
         throw ConversionException::conversionFailed($value, self::NAME);

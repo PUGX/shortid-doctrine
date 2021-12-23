@@ -60,7 +60,7 @@ final class ShortidTypeTest extends TestCase
     {
         $shortid = $this->getMockBuilder(Shortid::class)->disableOriginalConstructor()->getMock();
         $converted = $this->type->convertToDatabaseValue($shortid, $this->platform);
-        self::assertInstanceOf(Shortid::class, $converted);
+        self::assertIsString($converted);
     }
 
     public function testConvertToDatabaseValueException(): void
