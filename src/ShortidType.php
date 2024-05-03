@@ -24,11 +24,20 @@ final class ShortidType extends Type
 
         $field = ['length' => $length, 'fixed' => true];
         if (!$platform instanceof MySqlPlatform) {
-            return $platform->getVarcharTypeDeclarationSQL($field);
+            if (\is_callable([$platform, 'getVarcharTypeDeclarationSQL'])) {
+                return $platform->getVarcharTypeDeclarationSQL($field);
+            }
+
+            return $platform->getStringTypeDeclarationSQL($field);
         }
         $field['collation'] = 'utf8_bin';
+        $collation = $platform->getColumnCollationDeclarationSQL('utf8_bin');
 
-        return $platform->getVarcharTypeDeclarationSQL($field).' '.$platform->getColumnCollationDeclarationSQL('utf8_bin');
+        if (\is_callable([$platform, 'getVarcharTypeDeclarationSQL'])) {
+            return $platform->getVarcharTypeDeclarationSQL($field).' '.$collation;
+        }
+
+        return $platform->getStringTypeDeclarationSQL($field).' '.$collation;
     }
 
     public function convertToPHPValue($value, AbstractPlatform $platform): ?Shortid
@@ -36,11 +45,15 @@ final class ShortidType extends Type
         if (empty($value)) {
             return null;
         }
-        if (ShortId::isValid($value)) {
+        if (Shortid::isValid($value)) {
             return new Shortid($value);
         }
 
-        throw ConversionException::conversionFailed($value, self::NAME);
+        if (\is_callable([ConversionException::class, 'conversionFailed'])) {
+            throw ConversionException::conversionFailed($value, self::NAME);
+        }
+
+        throw new ConversionException(\sprintf('Invalid value %s for type %s', $value, self::NAME));
     }
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform): ?string
@@ -48,11 +61,15 @@ final class ShortidType extends Type
         if (empty($value)) {
             return null;
         }
-        if ($value instanceof ShortId || ShortId::isValid($value)) {
+        if ($value instanceof Shortid || Shortid::isValid($value)) {
             return (string) $value;
         }
 
-        throw ConversionException::conversionFailed($value, self::NAME);
+        if (\is_callable([ConversionException::class, 'conversionFailed'])) {
+            throw ConversionException::conversionFailed($value, self::NAME);
+        }
+
+        throw new ConversionException(\sprintf('Invalid value %s for type %s', $value, self::NAME));
     }
 
     public function getName(): string

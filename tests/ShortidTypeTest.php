@@ -26,7 +26,11 @@ final class ShortidTypeTest extends TestCase
 
     public function testGetSQLDeclaration(): void
     {
-        $this->platform->expects(self::once())->method('getVarcharTypeDeclarationSQL')->willReturn('CHAR');
+        if (\is_callable([$this->platform, 'getVarcharTypeDeclarationSQL'])) {
+            $this->platform->expects(self::once())->method('getVarcharTypeDeclarationSQL')->willReturn('CHAR');
+        } else {
+            $this->platform->expects(self::once())->method('getStringTypeDeclarationSQL')->willReturn('CHAR');
+        }
         $declaration = $this->type->getSQLDeclaration([], $this->platform);
         self::assertNotEmpty($declaration);
     }
