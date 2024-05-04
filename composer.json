@@ -21,12 +21,12 @@
         }
     ],
     "require": {
-        "php": "^8.0",
-        "doctrine/orm": "^2.7",
+        "php": "^8.1",
+        "doctrine/orm": "^2.7 || ^3.0",
         "pugx/shortid-php": "^1.0"
     },
     "require-dev": {
-        "dg/bypass-finals": "^1.5",
+        "dg/bypass-finals": "^1.6",
         "phpunit/phpunit": "^9.6"
     },
     "config": {
