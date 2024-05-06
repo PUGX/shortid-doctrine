@@ -27,7 +27,7 @@
     },
     "require-dev": {
         "dg/bypass-finals": "^1.6",
-        "phpunit/phpunit": "^9.6"
+        "phpunit/phpunit": "^9.6 || ^10.0"
     },
     "config": {
         "bin-dir": "bin"
