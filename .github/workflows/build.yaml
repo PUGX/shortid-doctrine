@@ -6,7 +6,7 @@ on:
 
 jobs:
     cs-fixer:
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-24.04
         name: PHP-CS-Fixer
         steps:
             - name: Checkout
@@ -14,7 +14,7 @@ jobs:
             - name: Fix CS
               uses: docker://oskarstark/php-cs-fixer-ga
     tests:
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-24.04
         strategy:
             matrix:
                 include:
@@ -23,8 +23,10 @@ jobs:
                       composer_option: '--prefer-lowest'
                     - description: '8.2'
                       php: '8.2'
-                    - description: 'latest'
+                    - description: '8.3'
                       php: '8.3'
+                    - description: 'latest'
+                      php: '8.4'
         name: PHP ${{ matrix.php }} tests
         steps:
             - name: Checkout
