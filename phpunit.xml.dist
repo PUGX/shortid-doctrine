@@ -1,36 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
-    bootstrap="vendor/autoload.php"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
     backupGlobals="false"
-    backupStaticAttributes="false"
     colors="true"
-    verbose="true"
-    convertErrorsToExceptions="false"
-    convertNoticesToExceptions="true"
-    convertWarningsToExceptions="true"
     processIsolation="false"
     stopOnFailure="false"
 >
-    <coverage>
+    <testsuites>
+        <testsuite name="ShortId Doctrine Test Suite">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+    <source>
         <include>
-            <directory suffix=".php">src/</directory>
+            <directory>src</directory>
         </include>
+    </source>
+    <logging>
+        <junit outputFile="build/report.junit.xml"/>
+    </logging>
+    <coverage>
         <report>
             <clover outputFile="build/logs/clover.xml"/>
             <html outputDirectory="build/coverage"/>
             <text outputFile="build/coverage.txt"/>
         </report>
     </coverage>
-    <testsuites>
-        <testsuite name="ShortId Doctrine Test Suite">
-            <directory>tests</directory>
-        </testsuite>
-    </testsuites>
-    <logging>
-        <junit outputFile="build/report.junit.xml"/>
-    </logging>
-    <!-- see https://www.tomasvotruba.cz/blog/2019/03/28/how-to-mock-final-classes-in-phpunit/ -->
     <extensions>
-        <extension class="PUGX\Shortid\Doctrine\Test\BypassFinalHook"/>
+        <bootstrap class="PUGX\Shortid\Doctrine\Test\BypassFinalExtension"/>
     </extensions>
 </phpunit>
