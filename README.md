@@ -1,5 +1,4 @@
-ShortId Doctrine Type
-=====================
+# ShortId Doctrine Type
 
 [![Total Downloads](https://poser.pugx.org/pugx/shortid-doctrine/downloads.png)](https://packagist.org/packages/pugx/shortid-doctrine)
 [![Build Status](https://github.com/PUGX/shortid-doctrine/workflows/build/badge.svg)](https://github.com/PUGX/shortid-doctrine/actions)
@@ -15,9 +14,8 @@ Run the following command:
 ```bash
 composer require pugx/shortid-doctrine
 ```
-
-**Note:** if you use Symfony, you should require
-[pugx/shortid-doctrine-bundle](https://github.com/PUGX/shortid-doctrine-bundle) instead. 
+> [!NOTE]  
+> if you use Symfony, you should require [pugx/shortid-doctrine-bundle](https://github.com/PUGX/shortid-doctrine-bundle) instead. 
 
 ## Examples
 
@@ -42,22 +40,17 @@ Example with ShortId created manually in constructor:
 ``` php
 <?php
 
+use Doctrine\ORM\Mapping as ORM;
 use PUGX\Shortid\Shortid;
 
-/**
- * @Entity
- * @Table
- */
+#[ORM\Entity]
+#[ORM\Table]
 class Product
 {
-    /**
-     * @var Shortid
-     *
-     * @Id
-     * @Column(type="shortid")
-     * @GeneratedValue(strategy="NONE")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'shortid')
+    #[ORM\GeneratedValue(strategy: 'NONE')
+    private Shortid $id;
 
     public function __construct(?Shortid $id = null)
     {
@@ -76,28 +69,21 @@ Example with auto-generated shortid:
 ``` php
 <?php
 
+use Doctrine\ORM\Mapping as ORM;
+use PUGX\Shortid\Doctrine\Generator\ShortidGenerator;
 use PUGX\Shortid\Shortid;
 
-/**
- * @Entity
- * @Table
- */
+#[ORM\Entity]
+#[ORM\Table]
 class Product
 {
-    /**
-     * @var Shortid
-     *
-     * @Id
-     * @Column(type="shortid")
-     * @GeneratedValue(strategy="CUSTOM")
-     * @CustomIdGenerator(class="PUGX\Shortid\Doctrine\Generator\ShortidGenerator")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'shortid')
+    #[ORM\GeneratedValue(strategy: 'CUSTOM')
+    #[ORM\CustomIdGenerator(class: ShortidGenerator::class)
+    private Shortid $id;
 
-    public function getId(): Shortid
-    {
-        return $this->id;
-    }
+    // etc...
 }
 ```
 
@@ -106,22 +92,16 @@ If you want to customize ShortId length, you can use the `length` option in the 
 ``` php
 <?php
 
-use PUGX\Shortid\Shortid;
+// use...
 
-/**
- * @Entity
- * @Table
- */
+#[ORM\Entity]
+#[ORM\Table]
 class Product
 {
-    /**
-     * @var Shortid
-     *
-     * @Id
-     * @Column(type="shortid", length=5)
-     * @GeneratedValue(strategy="NONE")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\Column(type: 'shortid', length: 5)
+    #[ORM\GeneratedValue(strategy: 'NONE')
+    private Shortid $id;
 
     public function __construct()
     {
