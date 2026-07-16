@@ -1,8 +1,10 @@
 name: build
 
 on:
+    push:
+        branches:
+            - master
     pull_request: ~
-    push: ~
 
 jobs:
     cs-fixer:
@@ -10,7 +12,7 @@ jobs:
         name: PHP-CS-Fixer
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
+              uses: actions/checkout@v7
             - name: Fix CS
               uses: docker://oskarstark/php-cs-fixer-ga
     tests:
@@ -19,27 +21,32 @@ jobs:
             matrix:
                 include:
                     - description: 'lowest'
-                      php: '8.1'
-                      composer_option: '--prefer-lowest'
-                    - description: '8.2'
                       php: '8.2'
+                      dependencies: lowest
                     - description: '8.3'
                       php: '8.3'
-                    - description: 'latest'
+                    - description: '8.4'
                       php: '8.4'
+                    - description: 'latest'
+                      php: '8.5'
         name: PHP ${{ matrix.php }} tests
         steps:
             - name: Checkout
-              uses: actions/checkout@v4
-            - name: Cache
-              uses: actions/cache@v4
-              with: 
-                  path: ~/.composer/cache/files
-                  key: ${{ matrix.php }}-${{ matrix.composer_option }} 
+              uses: actions/checkout@v7
             - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
                   php-version: ${{ matrix.php }}
-            - run: composer update --no-interaction --no-progress --ansi ${{ matrix.composer_option }}
-            - run: bin/phpunit
-
+            - name: Install dependencies
+              uses: ramsey/composer-install@v4
+              with:
+                  dependency-versions: ${{ matrix.dependencies }}
+            - name: Run tests
+              run: bin/phpunit --coverage-clover=clover.xml
+            - name: Publish code coverage
+              uses: qltysh/qlty-action/coverage@v1
+              if: ${{ github.event_name != 'pull_request' && matrix.php == '8.5' }}
+              with:
+                  token: ${{secrets.QLTY_COVERAGE_TOKEN}}
+                  format: clover
+                  files: clover.xml
